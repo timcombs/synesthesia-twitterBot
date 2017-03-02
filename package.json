@@ -1,6 +1,6 @@
 {
   "name": "music1",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "code for music bot",
   "main": "bot.js",
   "scripts": {
