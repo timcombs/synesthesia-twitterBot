@@ -1,0 +1,16 @@
+{
+  "name": "music1",
+  "version": "1.0.0",
+  "description": "code for music bot",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "deSolid State",
+  "license": "ISC",
+  "dependencies": {
+    "asciify-pixel": "^1.0.0",
+    "timbre": "^14.11.25",
+    "twit": "^2.2.2"
+  }
+}
