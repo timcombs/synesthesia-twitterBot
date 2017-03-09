@@ -5,6 +5,7 @@ https://github.com/CodingTrain/Rainbow-Code/tree/master/bots
 
 var Timbre = require('timbre');
 var Twit = require('twit');
+var fs = require('fs');
 
 // this code takes rgb values of a pixel and picks a ascii character
 // from a string that best fits it? not totally sure of functionality
@@ -44,23 +45,29 @@ var config = require('./config');
 var ndarray = require('ndarray');
 var getPixels  = require('get-pixels');
 
+console.log('synesthesia bot is now started:');
+
 var T = new Twit(config);
 
-//var userStream = T.stream('user');
-
 //bots to listen to
+// 69... = deSolidState, 27... = reverseocr
 var bots = ['699004549017677824', '2704554914'];
 
-//stream follows @reverseocr bot - 
-var botStream = T.stream('statuses/filter', {follow: bots});
-console.log(botStream);
+//stream follows @reverseocr bot & deSolidState
+var botStream = T.stream('statuses/filter', { follow: bots });
 
 // logs this bots tweets to console each time it tweets
-botStream.on('tweet', function (tweet) { console.log(tweet.text) });
+botStream.on('tweet', tweetEvent);
 
-// need to grab the url of the jpg out of the tweet
-// then analyze the file with an npm pkg
+// callback once tweet is "heard"
+function tweetEvent(tweet) {
+
+  //git url of jpg from tweet
+  var jpg = tweet.entities.media[0].url;
+};
                                                
+// then analyze the file with an npm pkg
+
 //support MP4 video format with H264 format with AAC audio
 //max file size is 512K and max length is 2:20
 //Min resolution: 32 x 32 -- Max resolution: 1920 x 1200 (and 1200 x 1900)
