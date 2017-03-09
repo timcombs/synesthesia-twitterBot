@@ -41,26 +41,54 @@ var Twit = require('twit');
 // }).toString());
 
 var config = require('./config');
+var ndarray = require('ndarray');
+var getPixels  = require('get-pixels');
+
 var T = new Twit(config);
 
-var userStream = T.stream('user');
+//var userStream = T.stream('user');
 
-//stream follows @reverseocr bot - huh?
-//this syntax is not correct?
-var ocrBotStream = T.stream('statuses/filter', {follow: 2865812463});
+//stream follows @reverseocr bot - 
+var botStream = T.stream('statuses/filter', {follow: ['699004549017677824', '2704554914']});
+console.log(botStream);
 
-// logs each tweet to console as they is structured like
-userStream.on('tweet', function (tweet) { console.log(tweet) });
+// logs this bots tweets to console each time it tweets
+botStream.on('tweet', function (tweet) { console.log(tweet.text) });
 
 // need to grab the url of the jpg out of the tweet
 // then analyze the file with an npm pkg
-
+                                               
 //support MP4 video format with H264 format with AAC audio
 //max file size is 512K and max length is 2:20
 //Min resolution: 32 x 32 -- Max resolution: 1920 x 1200 (and 1200 x 1900)
 //Aspect ratios: 1:2.39 - 2.39:1 range (inclusive)
 //Max frame rate: 40 fps
 //Max bitrate: 25 Mbps
+
+// this might be helpful cuz it shows how to tweet with media!
+// // post a tweet with media
+// var b64content = fs.readFileSync('/path/to/img', { encoding: 'base64' })
+//
+// // first we must post the media to Twitter
+// T.post('media/upload', { media_data: b64content }, function (err, data, response) {
+//   // now we can assign alt text to the media, for use by screen readers and
+//   // other text-based presentations and interpreters
+//   var mediaIdStr = data.media_id_string
+//   var altText = "Small flowers in a planter on a sunny balcony, blossoming."
+//   var meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
+
+//   T.post('media/metadata/create', meta_params, function (err, data, response) {
+//     if (!err) {
+//       // now we can reference the media and post a tweet (media will attach to the tweet)
+//       var params = { status: 'loving life #nofilter', media_ids: [mediaIdStr] }
+
+//       T.post('statuses/update', params, function (err, data, response) {
+//         console.log(data)
+//       })
+//     }
+//   })
+// })
+
 
 //How The Music Is Structured
 // need to find the x & y coordinates of each black pixel
@@ -73,8 +101,8 @@ userStream.on('tweet', function (tweet) { console.log(tweet) });
     // not sure if i will convert each character to ascii code
     // not sure if i will "sing" text using speech synthesis
 
-Timbre('square', {freq: 1600, mul:0.5}).play();
-Timbre('noise', {freq:1600, mul:0.25}).play();
+//Timbre('square', {freq: 1600, mul:0.5}).play();
+//Timbre('noise', {freq:1600, mul:0.25}).play();
 // T("fnoise", {freq:T(function(count) {
 //   return [220, 440, 880, 1760, 3520, 7040, 14080][count % 7];
 // }), mul:0.15}).play();
@@ -84,4 +112,4 @@ Timbre('noise', {freq:1600, mul:0.25}).play();
 // T("sin", {freq:878, mul:0.5}).play();
 // T("sin", {freq:870, mul:0.5}).play();
 // T("sin", {freq:871, mul:0.5}).play();
-Timbre('sin', {freq:Timbre('pulse', {freq:(Math.floor(Math.random()*10)+1), add:100, mul:5}).kr(), mul:0.5}).play();
+//Timbre('sin', {freq:Timbre('pulse', {freq:(Math.floor(Math.random()*10)+1), add:100, mul:5}).kr(), mul:0.5}).play();
