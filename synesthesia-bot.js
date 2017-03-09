@@ -5,6 +5,7 @@ https://github.com/CodingTrain/Rainbow-Code/tree/master/bots
 
 var Timbre = require('timbre');
 var Twit = require('twit');
+var fs = require('fs');
 
 // this code takes rgb values of a pixel and picks a ascii character
 // from a string that best fits it? not totally sure of functionality
@@ -44,24 +45,29 @@ var config = require('./config');
 var ndarray = require('ndarray');
 var getPixels  = require('get-pixels');
 
+console.log('synesthesia bot is now started:');
+
 var T = new Twit(config);
 
-//var userStream = T.stream('user');
-
 //bots to listen to
+// 69... = deSolidState, 27... = reverseocr
 var bots = ['699004549017677824', '2704554914'];
 
-//stream follows @reverseocr bot - 
-var botStream = T.stream('statuses/filter', {follow: bots});
-console.log(botStream);
+//stream follows @reverseocr bot & deSolidState
+var botStream = T.stream('statuses/filter', { follow: bots });
 
 // logs this bots tweets to console each time it tweets
-botStream.on('tweet', function (tweet) { console.log(tweet.text) });
+botStream.on('tweet', tweetEvent);
 
-// need to grab the url of the jpg out of the tweet
+// callback function that runs once tweet is "heard"
+function tweetEvent(tweet) {
+
+  //git url of jpg from tweet
+  var jpg = tweet.entities.media[0].url;
+};
+                                               
 // then analyze the file with an npm pkg
 
-// perhaps not npm package, but def need to analyze
 // a 3 dimensional array
 /*  r = red, g = green, b = blue, a = albedo,
     w = width = number of pixels in row, h = height = number of pixels in row
