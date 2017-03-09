@@ -59,7 +59,7 @@ var botStream = T.stream('statuses/filter', { follow: bots });
 // logs this bots tweets to console each time it tweets
 botStream.on('tweet', tweetEvent);
 
-// callback once tweet is "heard"
+// callback function that runs once tweet is "heard"
 function tweetEvent(tweet) {
 
   //git url of jpg from tweet
@@ -67,6 +67,17 @@ function tweetEvent(tweet) {
 };
                                                
 // then analyze the file with an npm pkg
+
+// a 3 dimensional array
+/*  r = red, g = green, b = blue, a = albedo,
+    w = width = number of pixels in row, h = height = number of pixels in row
+  [
+    [[r00, g00, b00, a00], [r01, g01, b01, a01],...,[r0w, g0w, c0w, a0w]],
+    [[r10, g10, b10, a10], [r11, g11, b11, a11],...,[r1w, g1w, c1w, a1w]],
+    ...,
+    [[rh0, gh0, bh0, ah0], [rh1, gh1, bh1, ah1],..., [rhw, ghw, chw, ahw]]
+  ]
+*/
 
 //support MP4 video format with H264 format with AAC audio
 //max file size is 512K and max length is 2:20
