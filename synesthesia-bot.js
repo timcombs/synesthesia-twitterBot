@@ -48,8 +48,11 @@ var T = new Twit(config);
 
 //var userStream = T.stream('user');
 
+//bots to listen to
+var bots = ['699004549017677824', '2704554914'];
+
 //stream follows @reverseocr bot - 
-var botStream = T.stream('statuses/filter', {follow: ['699004549017677824', '2704554914']});
+var botStream = T.stream('statuses/filter', {follow: bots});
 console.log(botStream);
 
 // logs this bots tweets to console each time it tweets
