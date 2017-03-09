@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "asciify-pixel": "^1.0.0",
+    "get-pixels": "^3.3.0",
+    "ndarray": "^1.0.18",
     "timbre": "^14.11.25",
     "twit": "^2.2.2"
   }
