@@ -56,17 +56,46 @@ var bots = ['699004549017677824', '2704554914'];
 //stream follows @reverseocr bot & deSolidState
 var botStream = T.stream('statuses/filter', { follow: bots });
 
-// logs this bots tweets to console each time it tweets
+// logs the bots tweets to console each time it tweets
 botStream.on('tweet', tweetEvent);
 
 // callback function that runs once tweet is "heard"
 function tweetEvent(tweet) {
-
   //git url of jpg from tweet
-  var jpg = tweet.entities.media[0].url;
+  var jpg = tweet.entities.media[0].media_url;
+
+  // then analyze the file with an npm pkg
+  getPixels(jpg, function(err, pixels) {
+    if(err) {
+      console.log('bad path or no media present', jpg);
+      return;
+    }
+    console.log('jpg loaded', pixels.shape, pixels.shape.slice());
+    console.log(pixels, pixels.data);
+    
+    //picArr is 1 string of 2 digit hex values
+    //the rgba values of each pixel in hex concatenated together
+    var picArr = pixels.data.toString('hex');
+    //fs.writeFile('give-it.txt', picArr); //for testing
+
+    //use string methods to take the digits in groups of 8
+    //1st 2digits are r, 2nd 2 are g, 3rd 2 are b, last 2 are albedo
+    //to grayscale the image
+    //slice the 1st 2digits, convert to decimal
+    //then 2nd 2 - convert, then 3rd 2 - convert, then 4th - DO NOT CONVERT
+    //add 1st 3 together then divide by three - convert back to hex
+    //concat the avg 3 times to new string - concat 4th
+    //then repeat until all pixels converted
+
+    //turn new string back into buffer
+    //convert buffer back into jpeg
+
+    //write jpeg to file system
+  });
 };
+
+function
                                                
-// then analyze the file with an npm pkg
 
 // a 3 dimensional array
 /*  r = red, g = green, b = blue, a = albedo,
