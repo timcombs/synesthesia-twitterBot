@@ -90,11 +90,32 @@ function tweetEvent(tweet) {
     //turn new string back into buffer
     //convert buffer back into jpeg
 
+    grayScaler(picArr);
     //write jpeg to file system
   });
 };
 
-function
+function grayScaler(str) {
+  var grayStr = '';
+  var rgbAvgStr = '';
+  var pixel = '';
+
+  while (str) {
+    var pixelR = parseInt(str.slice(0, 2), 16);
+    var pixelG = parseInt(str.slice(2, 4), 16);
+    var pixelB = parseInt(str.slice(4, 6), 16);
+    var pixelA = str.slice(6, 8);
+    str = str.slice(8);
+
+    //if going this route, need to round down to integer Math.ceil
+    //this needs to be a bit more complex cuz if the hex number is under 10
+    //this will only make it a single digit, need to add the leading 0
+    rgbAvgStr = Math.ceil(((pixelR + pixelG + pixelB) / 3)).toString(16);
+    grayStr += rgbAvgStr + rgbAvgStr + rgbAvgStr + pixelA;
+  }
+  
+  fs.writeFile('grayed.txt', grayStr); //for testing
+}
                                                
 
 // a 3 dimensional array
@@ -139,6 +160,10 @@ function
 //   })
 // })
 
+//ndarray will let me take column slices of the jpg
+//which should allow time to move along the horizontal axis from left to right
+//each column slice can be a 1/4 or 1/8 beat of time
+//analysis of the color or shade of the pixels in the slice are the tones played.
 
 //How The Music Is Structured
 // need to find the x & y coordinates of each black pixel
