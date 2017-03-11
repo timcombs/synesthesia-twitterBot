@@ -3,9 +3,9 @@ This twitter bot is based on the amazing tutorials and repository by Daniel Shif
 https://github.com/CodingTrain/Rainbow-Code/tree/master/bots
 */
 
-var Timbre = require('timbre');
 var Twit = require('twit');
 var fs = require('fs');
+var makeNoise = require('./make-noise');
 
 // this code takes rgb values of a pixel and picks a ascii character
 // from a string that best fits it? not totally sure of functionality
@@ -162,29 +162,14 @@ function grayScaler(str) {
 
 //ndarray will let me take column slices of the jpg
 //which should allow time to move along the horizontal axis from left to right
-//each column slice can be a 1/4 or 1/8 beat of time
+//each column slice should be a 1/4 or 1/8 beat of time - 1/2sec maximum
 //analysis of the color or shade of the pixels in the slice are the tones played.
 
-//How The Music Is Structured
-// need to find the x & y coordinates of each black pixel
-// need to convert those black pixels into "notes" of certain lengths
-    // each "song" will be same length correlated to the width of the jpg
-    // each "note" will be played as it is "reached" on the x-axis
-    // multiple "notes" at each x will be played as a chord
-    // not sure how to deviate note length, if necessary
-// need to grab text of tweet
-    // not sure if i will convert each character to ascii code
-    // not sure if i will "sing" text using speech synthesis
+//grab each slice, manipulate the data and call makeTones for each pixel of width
+//var jpgWidth = jpg.width //or something
+//for (var i = 0; i < jpgWidth; i++) {
+//  //get slice using ndarray
+//  //manipulate data
+//  makeTones(slice);
+//}
 
-//Timbre('square', {freq: 1600, mul:0.5}).play();
-//Timbre('noise', {freq:1600, mul:0.25}).play();
-// T("fnoise", {freq:T(function(count) {
-//   return [220, 440, 880, 1760, 3520, 7040, 14080][count % 7];
-// }), mul:0.15}).play();
-// T("pink", {mul:0.50}).play();
-// T("fnoise", {mul:5}).play();
-// T("sin", {freq:879, mul:0.5}).play();
-// T("sin", {freq:878, mul:0.5}).play();
-// T("sin", {freq:870, mul:0.5}).play();
-// T("sin", {freq:871, mul:0.5}).play();
-//Timbre('sin', {freq:Timbre('pulse', {freq:(Math.floor(Math.random()*10)+1), add:100, mul:5}).kr(), mul:0.5}).play();
